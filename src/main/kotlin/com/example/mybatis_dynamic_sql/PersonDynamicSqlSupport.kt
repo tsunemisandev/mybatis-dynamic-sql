@@ -93,9 +93,10 @@ interface PersonMapper {
 
 class GetUserName(column: BindableColumn<String>?) : AbstractUniTypeFunction<String, GetUserName>(column) {
     override fun render(renderingContext: RenderingContext?): FragmentAndParameters {
-        val renderedColumn = column.render(renderingContext);
-        return FragmentAndParameters.withFragment("username(" + renderedColumn.fragment() + ")") //$NON-NLS-1$ //$NON-NLS-2$
-            .withParameters(renderedColumn.parameters()).build();
+//        val renderedColumn = column.render(renderingContext);
+//        return FragmentAndParameters.withFragment("username(" + renderedColumn.fragment() + ")") //$NON-NLS-1$ //$NON-NLS-2$
+//            .withParameters(renderedColumn.parameters()).build();
+        return column.render(renderingContext).mapFragment { f-> "username($f)" }
     }
 
     override fun copy(): GetUserName {
