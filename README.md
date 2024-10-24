@@ -24,6 +24,20 @@ object PersonDynamicSqlSupport {
         val addressId = column<Int>(name = "address_id", jdbcType = JDBCType.INTEGER)
     }
 }
+
+class GetUserName(column: BindableColumn<String>?) : AbstractUniTypeFunction<String, GetUserName>(column) {
+    override fun render(renderingContext: RenderingContext?): FragmentAndParameters {
+        val renderedColumn = column.render(renderingContext);
+        return FragmentAndParameters.withFragment("username(" + renderedColumn.fragment() + ")") //$NON-NLS-1$ //$NON-NLS-2$
+            .withParameters(renderedColumn.parameters()).build();
+    }
+
+    override fun copy(): GetUserName {
+        return GetUserName(column)
+    }
+
+
+}
 ```
 Output example
 ```sql
